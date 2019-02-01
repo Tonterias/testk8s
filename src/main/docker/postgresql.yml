@@ -1,0 +1,11 @@
+version: '2'
+services:
+    testk8s-postgresql:
+        image: postgres:10.4
+        # volumes:
+        #     - ~/volumes/jhipster/testk8s/postgresql/:/var/lib/postgresql/data/
+        environment:
+            - POSTGRES_USER=testk8s
+            - POSTGRES_PASSWORD=
+        ports:
+            - 5432:5432
