@@ -1,0 +1,184 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-profile-heading">Create or edit a Profile</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!profile.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="profile.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_creationDate">Creation Date</label>
+                    <div class="d-flex">
+                        <input id="field_creationDate" type="datetime-local" class="form-control" name="creationDate" [(ngModel)]="creationDate" placeholder="YYYY-MM-DD HH:mm"
+                        required/>
+                    </div>
+                    <div [hidden]="!(editForm.controls.creationDate?.dirty && editForm.controls.creationDate?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.creationDate?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.creationDate?.errors?.ZonedDateTimelocal">
+                            This field should be a date and time.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_image">Image</label>
+                    <div>
+                        <img [src]="'data:' + profile.imageContentType + ';base64,' + profile.image" style="max-height: 100px;" *ngIf="profile.image" alt="profile image"/>
+                        <div *ngIf="profile.image" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{profile.imageContentType}}, {{byteSize(profile.image)}}</span>
+                            <button type="button" (click)="clearInputImage('image', 'imageContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_image" (change)="setFileData($event, profile, 'image', true)" accept="image/*"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="image" id="field_image"
+                        [(ngModel)]="profile.image" />
+                    <input type="hidden" class="form-control" name="imageContentType" id="field_imageContentType"
+                        [(ngModel)]="profile.imageContentType" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_gender">Gender</label>
+                    <select class="form-control" name="gender" [(ngModel)]="profile.gender" id="field_gender"  required>
+                        <option value="MALE">MALE</option>
+                        <option value="FEMALE">FEMALE</option>
+                        <option value="OTHER">OTHER</option>
+                    </select>
+                    <div [hidden]="!(editForm.controls.gender?.dirty && editForm.controls.gender?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.gender?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_phone">Phone</label>
+                    <input type="text" class="form-control" name="phone" id="field_phone"
+                        [(ngModel)]="profile.phone" required maxlength="20"/>
+                    <div [hidden]="!(editForm.controls.phone?.dirty && editForm.controls.phone?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.phone?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.phone?.errors?.maxlength">
+                        This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_bio">Bio</label>
+                    <input type="text" class="form-control" name="bio" id="field_bio"
+                        [(ngModel)]="profile.bio" maxlength="7500"/>
+                    <div [hidden]="!(editForm.controls.bio?.dirty && editForm.controls.bio?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.bio?.errors?.maxlength">
+                        This field cannot be longer than 7500 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_facebook">Facebook</label>
+                    <input type="text" class="form-control" name="facebook" id="field_facebook"
+                        [(ngModel)]="profile.facebook" maxlength="50"/>
+                    <div [hidden]="!(editForm.controls.facebook?.dirty && editForm.controls.facebook?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.facebook?.errors?.maxlength">
+                        This field cannot be longer than 50 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_twitter">Twitter</label>
+                    <input type="text" class="form-control" name="twitter" id="field_twitter"
+                        [(ngModel)]="profile.twitter" maxlength="50"/>
+                    <div [hidden]="!(editForm.controls.twitter?.dirty && editForm.controls.twitter?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.twitter?.errors?.maxlength">
+                        This field cannot be longer than 50 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_linkedin">Linkedin</label>
+                    <input type="text" class="form-control" name="linkedin" id="field_linkedin"
+                        [(ngModel)]="profile.linkedin" maxlength="50"/>
+                    <div [hidden]="!(editForm.controls.linkedin?.dirty && editForm.controls.linkedin?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.linkedin?.errors?.maxlength">
+                        This field cannot be longer than 50 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_instagram">Instagram</label>
+                    <input type="text" class="form-control" name="instagram" id="field_instagram"
+                        [(ngModel)]="profile.instagram" maxlength="50"/>
+                    <div [hidden]="!(editForm.controls.instagram?.dirty && editForm.controls.instagram?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.instagram?.errors?.maxlength">
+                        This field cannot be longer than 50 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_optionalsn">Optionalsn</label>
+                    <input type="text" class="form-control" name="optionalsn" id="field_optionalsn"
+                        [(ngModel)]="profile.optionalsn" maxlength="50"/>
+                    <div [hidden]="!(editForm.controls.optionalsn?.dirty && editForm.controls.optionalsn?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.optionalsn?.errors?.maxlength">
+                        This field cannot be longer than 50 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_birthdate">Birthdate</label>
+                    <div class="d-flex">
+                        <input id="field_birthdate" type="datetime-local" class="form-control" name="birthdate" [(ngModel)]="birthdate" placeholder="YYYY-MM-DD HH:mm"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_sibblings">Sibblings</label>
+                    <input type="number" class="form-control" name="sibblings" id="field_sibblings"
+                        [(ngModel)]="profile.sibblings" min="-1" jhiMin="-1" max="20" jhiMax="20"/>
+                    <div [hidden]="!(editForm.controls.sibblings?.dirty && editForm.controls.sibblings?.invalid)">
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.sibblings?.errors?.min">
+                            This field should be at least -1.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.sibblings?.errors?.max">
+                            This field cannot be more than 20.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.sibblings?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_pet">Pet</label>
+                    <input type="checkbox" class="form-control" name="pet" id="field_pet"
+                        [(ngModel)]="profile.pet" />
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

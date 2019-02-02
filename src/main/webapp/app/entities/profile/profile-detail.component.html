@@ -1,0 +1,80 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="profile">
+            <h2><span>Profile</span> {{profile.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Creation Date</span></dt>
+                <dd>
+                    <span>{{profile.creationDate}}</span>
+                </dd>
+                <dt><span>Image</span></dt>
+                <dd>
+                    <div *ngIf="profile.image">
+                        <a (click)="openFile(profile.imageContentType, profile.image)">
+                            <img [src]="'data:' + profile.imageContentType + ';base64,' + profile.image" style="max-width: 100%;" alt="profile image"/>
+                        </a>
+                        {{profile.imageContentType}}, {{byteSize(profile.image)}}
+                    </div>
+                </dd>
+                <dt><span>Gender</span></dt>
+                <dd>
+                    <span>{{profile.gender}}</span>
+                </dd>
+                <dt><span>Phone</span></dt>
+                <dd>
+                    <span>{{profile.phone}}</span>
+                </dd>
+                <dt><span>Bio</span></dt>
+                <dd>
+                    <span>{{profile.bio}}</span>
+                </dd>
+                <dt><span>Facebook</span></dt>
+                <dd>
+                    <span>{{profile.facebook}}</span>
+                </dd>
+                <dt><span>Twitter</span></dt>
+                <dd>
+                    <span>{{profile.twitter}}</span>
+                </dd>
+                <dt><span>Linkedin</span></dt>
+                <dd>
+                    <span>{{profile.linkedin}}</span>
+                </dd>
+                <dt><span>Instagram</span></dt>
+                <dd>
+                    <span>{{profile.instagram}}</span>
+                </dd>
+                <dt><span>Optionalsn</span></dt>
+                <dd>
+                    <span>{{profile.optionalsn}}</span>
+                </dd>
+                <dt><span>Birthdate</span></dt>
+                <dd>
+                    <span>{{profile.birthdate}}</span>
+                </dd>
+                <dt><span>Sibblings</span></dt>
+                <dd>
+                    <span>{{profile.sibblings}}</span>
+                </dd>
+                <dt><span>Pet</span></dt>
+                <dd>
+                    <span>{{profile.pet}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/profile', profile.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

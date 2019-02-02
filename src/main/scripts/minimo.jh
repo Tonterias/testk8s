@@ -1,0 +1,33 @@
+entity Profile {
+    creationDate Instant required
+    image ImageBlob
+    gender Gender required
+    phone String maxlength(20) required
+    bio String maxlength(7500)    facebook String maxlength(50)
+    twitter String maxlength(50)
+    linkedin String maxlength(50)
+    instagram String maxlength(50)
+    optionalsn String maxlength(50)
+    birthdate Instant
+    sibblings Integer min(-1) max(20)
+    pet Boolean
+}
+
+// ENUMS:
+enum Gender {
+    MALE, FEMALE, OTHER
+}
+
+// Set pagination options
+//paginate all with infinite-scroll
+paginate all with pagination
+
+// DTO for all
+dto * with mapstruct
+
+// Set service options to all except few
+// service all with serviceImpl
+service all with serviceClass
+
+//Filtering
+filter *
